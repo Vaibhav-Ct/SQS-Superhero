@@ -1,4 +1,4 @@
-# SuperHeroes Management System 🦸‍♂️
+# SQS Based SuperHeroes Management System 🦸‍♂️
 
 ## Introduction
 Welcome to the **SuperHeroes Management System**! This project is a simple Spring Boot application designed to manage superhero data. You can create, retrieve, update, and delete superhero records using RESTful APIs.
@@ -9,57 +9,91 @@ Welcome to the **SuperHeroes Management System**! This project is a simple Sprin
 - 🔄 Update existing superhero details using PUT requests.
 - ❌ Delete a superhero by name using DELETE requests.
 
-## Technologies Used
-- **Java** – Core programming language
-- **Spring Boot** – Framework for building REST APIs
-- **MongoDB** – NoSQL database for storing superhero data
-- **Docker** – For containerizing the application
-- **Postman** – For testing and API interactions
+# SQS Superhero Service
 
+## Overview
 
-## Installation
-To set up the project locally:
+`SQS Superhero Service` is a Spring Boot-based application that manages superhero data and leverages Amazon Simple Queue Service (SQS) for handling asynchronous message processing. The service includes functionalities to add, update, delete, and query superhero records while efficiently managing message queues for real-time updates.
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/Vaibhav-Ct/SuperHeroes-Memory.git
+## Features
 
-2. Build the application:
-./mvnw clean install
+- **AWS SQS Integration**: Uses AWS SQS for decoupled messaging and asynchronous processing.
+- **CRUD Operations**: Offers endpoints for creating, reading, updating, and deleting superhero records.
+- **Spring Boot Powered**: Utilizes Spring Boot for streamlined application setup and deployment.
+- **RESTful API**: Accessible interfaces for smooth interaction with the application.
 
-4. ./mvnw spring-boot:run
-Verify: The application should be running on http://localhost:8080.
+## Setup and Installation
 
-5. Running the Application
-Once the application is running, you can interact with it using:
+### Prerequisites
 
-### POST - Insert a New Superhero
-curl -X POST "http://localhost:8080/api/superhero" -H "Content-Type: application/json" -d '{"name": "Iron Man", "power": "Genius Intellect", "gender": "Male", "age": 45, "universe": "Marvel"}'
+- Java 11 or higher
+- Maven or Gradle
+- AWS Account with access to SQS
+- Configured AWS CLI or AWS SDK with necessary credentials
 
-### GET - Retrieve All Superheroes
-curl -X GET "http://localhost:8080/api/heroes"
+### Installation Steps
 
-### GET - Retrieve Superheroes by Name or Universe
-curl -X GET "http://localhost:8080/api/superhero?name=Iron%20Man"
+1. **Clone the Repository**
 
-curl -X GET "http://localhost:8080/api/superhero?universe=Marvel"
+    ```bash
+    https://github.com/Vaibhav-Ct/SQS-Superhero.git
+    cd sqs-superhero-service
+    ```
 
-### PUT - Update Superhero Details
-curl -X PUT "http://localhost:8080/api/superheroes/Iron%20Man" -H "Content-Type: application/json" -d '{"power": "Advanced Technology", "age": 46}'
+2. **Configure AWS Credentials**
 
-### DELETE - Delete a Superhero
-curl -X DELETE "http://localhost:8080/api/superheroes/Iron%20Man"
+    Ensure your AWS credentials are configured. This can be done using the AWS CLI with `aws configure`, or by setting environment variables:
 
-### Endpoints
-Insert a superhero: POST /api/superhero
-Insert many superheroes: POST /api/superheroes
-Update a superhero: PUT /api/superheroes/{name}
-Delete a superhero: DELETE /api/superheroes/{name}
-Retrieve by name or universe: GET /api/superhero
+    ```bash
+    export AWS_ACCESS_KEY_ID=your_access_key_id
+    export AWS_SECRET_ACCESS_KEY=your_secret_access_key
+    ```
 
-### Database
-The project uses MongoDB as the database to store superhero records. The MongoDB container is running locally on http://localhost:27017.
+3. **Configure Application Properties**
 
-### Running MongoDB with Docker
-docker run -d -p 27017:27017 --name mongodb-container mongo:6.0.20
+    Open `src/main/resources/application.properties` and configure your SQS settings:
+
+    ```properties
+    aws.sqs.queue.url=your_sqs_queue_url
+    aws.sqs.region=your_aws_region
+    ```
+
+4. **Build and Run the Application**
+
+    If you are using Maven, run:
+
+    ```bash
+    mvn spring-boot:run
+    ```
+
+    Or if you are using Gradle:
+
+    ```bash
+    ./gradlew bootRun
+    ```
+
+## API Endpoints
+
+- **GET /api/superhero**
+  - Retrieve a list of superheroes, optionally filtered by name or universe.
+
+- **POST /api/superhero**
+  - Create a new superhero.
+
+- **PUT /api/superheroes/{name}**
+  - Update superhero details based on the name.
+
+- **DELETE /api/superheroes/{name}**
+  - Delete a superhero based on the name.
+
+- **PUT /api/update_async?name={update_name}**
+  - Send an asynchronous update message with the superhero name.
+
+## Technology Stack
+
+- **Java 11**
+- **Spring Boot**
+- **AWS SQS**
+- **AWS SDK for Java v2** for SQS integration
+- **Gradle/Maven**
 
