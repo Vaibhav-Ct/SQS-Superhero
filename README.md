@@ -1,12 +1,12 @@
 # SQS Based SuperHeroes Management System 🦸‍♂️
 
 ## Introduction
-Welcome to the **SuperHeroes Management System**! This project is a simple Spring Boot application designed to manage superhero data. You can create, retrieve, update, and delete superhero records using RESTful APIs.
+Welcome to the **SuperHeroes Management System**! This project is a simple Spring Boot application designed to manage superhero data. You can create, retrieve, update, and delete superhero records using RESTful APIs in SQS Message Queue.
 
 ## Features
 - 🌟 Insert a new superhero using POST requests.
 - 🔍 Retrieve superhero details by name or universe using GET requests.
-- 🔄 Update existing superhero details using PUT requests.
+- 🔄 Update existing superhero details using PUT requests in SQS Message Queue.
 - ❌ Delete a superhero by name using DELETE requests.
 
 # SQS Superhero Service
